@@ -1,0 +1,382 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-dark: #f1f5f9; /* Clean light slate background, Google Maps style */
+  --panel-bg: rgba(255, 255, 255, 0.85); /* Light glassmorphic card background */
+  --panel-border: rgba(15, 23, 42, 0.08); /* Subtle soft border */
+  --panel-border-hover: rgba(6, 182, 212, 0.3); /* Smooth neon outline on hover */
+  
+  --text-main: #0f172a; /* High contrast dark text (Slate 900) */
+  --text-muted: #475569; /* Slate 600 */
+  --text-dim: #64748b; /* Slate 500 */
+  
+  --neon-violet: #8b5cf6; /* Soft violet pastel */
+  --neon-violet-glow: rgba(139, 92, 246, 0.12);
+  --neon-cyan: #06b6d4; /* Radiant cyan highlight */
+  --neon-cyan-glow: rgba(6, 182, 212, 0.15);
+  
+  --bg-hover: rgba(15, 23, 42, 0.03); /* Soft hover overlay */
+  --bg-active: rgba(6, 182, 212, 0.06); /* Soft active sector overlay */
+  
+  --transition-speed: 0.3s;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: 'Outfit', sans-serif;
+  overflow: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.1);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(15, 23, 42, 0.2);
+}
+
+/* App Container Layout */
+.app-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-dark);
+}
+
+/* Fullscreen Map Wrapper */
+.map-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Glassmorphism Panels */
+.glass-panel {
+  background: var(--panel-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06); /* Soft shadow for light mode cards */
+  transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+  pointer-events: auto;
+}
+
+.glass-panel:hover {
+  border-color: var(--panel-border-hover);
+  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.08);
+}
+
+/* Sidebar Overlay */
+.sidebar-overlay {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 340px;
+  max-height: calc(100vh - 40px);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 15px;
+}
+
+.sidebar-header h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--text-main), var(--text-muted));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 4px;
+}
+
+.sidebar-header p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Search Bar */
+.search-container {
+  position: relative;
+  width: 100%;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 16px 12px 38px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  transition: all var(--transition-speed) ease;
+}
+
+.search-input:focus {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 8px var(--neon-cyan-glow);
+  background: #fff;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-dim);
+  pointer-events: none;
+}
+
+/* Sectors List */
+.sectors-list-container {
+  flex: 1;
+  overflow-y: auto;
+  margin-top: 5px;
+}
+
+.sectors-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sector-item {
+  padding: 12px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--panel-border);
+  transition: all var(--transition-speed) ease;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sector-item:hover {
+  background: var(--bg-hover);
+  border-color: var(--panel-border-hover);
+}
+
+.sector-item.active {
+  background: var(--bg-active);
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 10px rgba(6, 182, 212, 0.1);
+}
+
+.sector-item-name {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.sector-item.active .sector-item-name {
+  color: var(--neon-cyan);
+}
+
+.sector-item-saint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.no-results {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 20px 0;
+  font-style: italic;
+}
+
+
+
+/* Leaflet Overrides */
+.leaflet-container {
+  background: var(--bg-dark) !important;
+  width: 100%;
+  height: 100%;
+}
+
+.leaflet-control-zoom {
+  border: 1px solid var(--panel-border) !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05) !important;
+  border-radius: 8px !important;
+}
+
+.leaflet-control-zoom a {
+  background: var(--panel-bg) !important;
+  color: var(--text-main) !important;
+  border-bottom: 1px solid var(--panel-border) !important;
+  backdrop-filter: blur(8px);
+}
+
+.leaflet-control-zoom a:hover {
+  background: rgba(0, 0, 0, 0.04) !important;
+  color: var(--text-main) !important;
+}
+
+.leaflet-bar {
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+.leaflet-popup-content-wrapper {
+  background: var(--panel-bg) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid var(--panel-border) !important;
+  color: var(--text-main) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.05) !important;
+}
+
+.leaflet-popup-tip {
+  background: var(--panel-bg) !important;
+}
+
+/* Tooltip style */
+.glass-tooltip {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  color: var(--text-main) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+  font-family: inherit;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 4px 8px;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* Responsive Overrides */
+@media (max-width: 768px) {
+  .sidebar-overlay {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    width: calc(100% - 20px);
+    max-height: 35vh;
+    bottom: auto;
+    border-radius: 12px;
+  }
+  
+  
+
+  .leaflet-top.leaflet-left {
+    top: 36vh !important; /* Move zoom controls down below the top sidebar */
+  }
+}
+
+/* Custom Map Style Switcher */
+.map-style-switcher {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  gap: 8px;
+  padding: 6px;
+  background: var(--panel-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  transition: all var(--transition-speed) ease;
+}
+
+.map-style-switcher:hover {
+  border-color: var(--panel-border-hover);
+  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.08);
+}
+
+.map-style-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 54px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 10px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  gap: 4px;
+}
+
+.map-style-btn svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 2;
+  transition: stroke 0.2s ease, transform 0.2s ease;
+}
+
+.map-style-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-main);
+}
+
+.map-style-btn:hover svg {
+  transform: translateY(-1px);
+}
+
+.map-style-btn.active {
+  background: var(--bg-active);
+  color: var(--neon-cyan);
+  font-weight: 600;
+}
+
+.map-style-btn.active svg {
+  stroke: var(--neon-cyan);
+}
+
+@media (max-width: 768px) {
+  .map-style-switcher {
+    top: calc(35vh + 20px);
+    right: 10px;
+    padding: 4px;
+    gap: 4px;
+  }
+  
+  .map-style-btn {
+    width: 56px;
+    height: 48px;
+    font-size: 9px;
+  }
+}
+
