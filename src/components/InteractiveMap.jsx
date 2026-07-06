@@ -244,14 +244,14 @@ export default function InteractiveMap({
           <Globe />
           <span>Satélite</span>
         </button>
-        <button
+        {/* <button
           className={`map-style-btn ${mapStyle === 'classic' ? 'active' : ''}`}
           onClick={() => setMapStyle('classic')}
           title="Ver mapa clásico (Pastel)"
         >
           <Palette />
           <span>Clásico</span>
-        </button>
+        </button> */}
       </div>
     </div>
   );

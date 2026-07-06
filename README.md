@@ -1,16 +1,60 @@
-# React + Vite
+# Mapa Eclesiástico — Caraballeda
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Mapa interactivo de los sectores eclesiásticos de Caraballeda, Estado Vargas, Venezuela. Cada sector muestra su nombre, santo patrono y capillas, con navegación visual sobre un mapa interactivo.
 
-Currently, two official plugins are available:
+## Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- 🗺️ **Mapa interactivo** con polígonos GeoJSON por sector
+- 🔍 **Búsqueda** por nombre de sector o santo patrono
+- 🛰️ **Vista satelital** y modo calle (Google Maps tiles)
+- 📍 **Navegación con zoom** automático al seleccionar un sector
+- 🎨 **Colores pastel** distintivos por sector
+- 📋 **Sidebar** con listado completo de sectores y sus patronos
 
-## React Compiler
+## Tecnologías
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- [React 19](https://react.dev/) + [Vite 8](https://vitejs.dev/)
+- [Leaflet](https://leafletjs.com/) para el mapa interactivo
+- [Lucide React](https://lucide.dev/) para los íconos
+- [Oxlint](https://oxc.rs/) para linting
 
-## Expanding the Oxlint configuration
+## Sectores
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+| Sector | Santo Patrono |
+|---|---|
+| Caimito | Virgen de Coromoto |
+| Las Tomitas | — |
+| El Collao | — |
+| San Julián | — |
+| Casco Central | — |
+| Tarigua | — |
+| La Miel | — |
+| Francisco Fajardo | — |
+| 27 de Julio | — |
+| Colonia Andina | — |
+| Palmar Este | — |
+| Tarituca | — |
+| Tucacas | — |
+
+## Desarrollo
+
+```bash
+# Instalar dependencias
+npm install
+
+# Iniciar servidor de desarrollo
+npm run dev
+
+# Build de producción
+npm run build
+
+# Vista previa del build
+npm run preview
+
+# Linting
+npm run lint
+```
+
+## Licencia
+
+MIT
