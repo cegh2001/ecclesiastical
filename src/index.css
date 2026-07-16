@@ -380,3 +380,244 @@ html, body, #root {
   }
 }
 
+/* Cursor para modo de dibujo */
+.drawing-cursor .leaflet-container {
+  cursor: crosshair !important;
+}
+
+.drawing-cursor .sector-polygon-path {
+  pointer-events: none !important;
+}
+
+/* Panel de control de dibujo flotante */
+.drawing-panel {
+  position: absolute;
+  top: 90px;
+  right: 20px;
+  width: 320px;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: var(--panel-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  transition: all var(--transition-speed) ease;
+}
+
+.drawing-panel:hover {
+  border-color: var(--panel-border-hover);
+  box-shadow: 0 10px 30px rgba(6, 182, 212, 0.08);
+}
+
+.drawing-panel-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.drawing-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.drawing-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.drawing-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+/* Custom switch toggle */
+.switch-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-main);
+}
+
+.switch-input {
+  display: none;
+}
+
+.switch-slider {
+  position: relative;
+  width: 36px;
+  height: 18px;
+  background-color: rgba(15, 23, 42, 0.1);
+  border-radius: 18px;
+  transition: background-color 0.2s ease;
+}
+
+.switch-slider::before {
+  content: "";
+  position: absolute;
+  height: 12px;
+  width: 12px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.switch-input:checked + .switch-slider {
+  background-color: var(--neon-cyan);
+}
+
+.switch-input:checked + .switch-slider::before {
+  transform: translateX(18px);
+}
+
+/* Action buttons */
+.drawing-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: 1px solid var(--panel-border);
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--text-main);
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.drawing-btn:hover {
+  background: var(--bg-hover);
+  border-color: var(--panel-border-hover);
+}
+
+.drawing-btn.active {
+  background: var(--bg-active);
+  color: var(--neon-cyan);
+  border-color: var(--neon-cyan);
+}
+
+.drawing-btn-danger {
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.2);
+  background: rgba(239, 68, 68, 0.05);
+}
+
+.drawing-btn-danger:hover {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.drawing-btn-success {
+  color: #10b981;
+  border-color: rgba(16, 185, 129, 0.2);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.drawing-btn-success:hover {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.drawing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+/* Style controls */
+.width-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.width-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+  min-width: 24px;
+  text-align: center;
+}
+
+.color-presets {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.color-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.color-dot:hover {
+  transform: scale(1.15);
+}
+
+.color-dot.active {
+  border-color: var(--text-main);
+  box-shadow: 0 0 0 2px var(--panel-bg);
+}
+
+/* GeoJSON Output */
+.geojson-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.geojson-textarea {
+  width: 100%;
+  height: 80px;
+  padding: 8px;
+  background: rgba(15, 23, 42, 0.04);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  resize: none;
+  outline: none;
+}
+
+.geojson-textarea:focus {
+  border-color: var(--neon-cyan);
+}
+
+@media (max-width: 768px) {
+  .drawing-panel {
+    top: calc(35vh + 80px);
+    right: 10px;
+    width: calc(100% - 20px);
+    left: 10px;
+    max-height: 40vh;
+  }
+}
+
+
